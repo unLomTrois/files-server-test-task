@@ -2,12 +2,16 @@
 https://docs.nestjs.com/fundamentals/testing#unit-testing
 */
 
+import { HttpStatus } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { FilesController } from './files.controller';
 import { FilesService } from './files.service';
+import { Response } from 'express';
+import { FileDto } from './dto/file.dto';
 
 describe('FilesController', () => {
   let filesController: FilesController;
+  let filesService: FilesService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -17,6 +21,7 @@ describe('FilesController', () => {
     }).compile();
 
     filesController = moduleRef.get<FilesController>(FilesController);
+    filesService = await moduleRef.resolve(FilesService);
   });
 
   it('should be defined', () => {
@@ -35,6 +40,27 @@ describe('FilesController', () => {
         ],
       };
       expect(await filesController.getList()).toEqual(result);
+    });
+  });
+
+  describe('getFile [text]', () => {
+    const result: FileDto = {
+      contentType: 'text/plain',
+      data: Buffer.from('Съешь ещё этих французских булок да выпей же чаю'),
+    };
+
+    it("Content-Type should be equal 'text/plain'", async () => {
+      const file = await filesService.get(
+        '2981c30294ab58ec864e2f9df455fff512f61020.txt',
+      );
+      expect(file.contentType).toEqual(result.contentType);
+    });
+
+    it('should return a file content', async () => {
+      const file = await filesService.get(
+        '2981c30294ab58ec864e2f9df455fff512f61020.txt',
+      );
+      expect(file.data).toEqual(result.data);
     });
   });
 });
