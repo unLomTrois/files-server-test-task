@@ -6,7 +6,7 @@ export class FilesController {
   constructor(private filesService: FilesService) {}
 
   @Get()
-  async getList() {
+  async getList(): Promise<{ files: string[]; }> {
     return { files: await this.filesService.getList() };
   }
 
