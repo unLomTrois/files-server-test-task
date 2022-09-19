@@ -1,3 +1,5 @@
+[![CI](https://github.com/unLomTrois/files-server-test-task/actions/workflows/main.yml/badge.svg)](https://github.com/unLomTrois/files-server-test-task/actions/workflows/main.yml)
+
 # Тестовое задание
 
 ### Запуск сервера:
