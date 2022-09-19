@@ -8,6 +8,7 @@ import { FilesController } from './files.controller';
 import { FilesService } from './files.service';
 import { Response } from 'express';
 import { FileDto } from './dto/file.dto';
+import { readFile } from 'node:fs/promises';
 
 describe('FilesController', () => {
   let filesController: FilesController;
@@ -61,6 +62,25 @@ describe('FilesController', () => {
         '2981c30294ab58ec864e2f9df455fff512f61020.txt',
       );
       expect(file.data).toEqual(result.data);
+    });
+  });
+
+  describe('getFile [jpg]', () => {
+    const filename = '2981c30294ab58ec864e2f9df755fff542f61020.jpg';
+    const path = `private/resources/${filename}`;
+
+    it("Content-Type should be equal 'image/jpeg'", async () => {
+      const file = await filesService.get(filename);
+      expect(file.contentType).toEqual('image/jpeg');
+    });
+
+    it('should return data', async () => {
+      const result: FileDto = {
+        contentType: 'image/jpeg',
+        data: await readFile(path),
+      };
+      const file = await filesService.get(filename);
+      expect(file).toEqual(result);
     });
   });
 });
