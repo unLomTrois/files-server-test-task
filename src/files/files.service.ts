@@ -3,6 +3,8 @@ import * as mime from 'mime-types';
 import * as fs from 'fs';
 import { FileDto } from './dto/file.dto';
 
+import { readdir } from 'node:fs/promises'
+
 @Injectable()
 export class FilesService {
   private readonly fileDir = 'private/resources';
@@ -19,8 +21,8 @@ export class FilesService {
     });
   }
 
-  getList(): string[] {
-    return [];
+  async getList(): Promise<string[]> {
+    return readdir('private/resources')
   }
 
   //Methods
