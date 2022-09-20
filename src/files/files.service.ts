@@ -3,7 +3,7 @@ import * as mime from 'mime-types';
 import * as fs from 'fs';
 import { FileDto } from './dto/file.dto';
 
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'fs/promises';
 
 @Injectable()
 export class FilesService {

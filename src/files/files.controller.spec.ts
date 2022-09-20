@@ -8,7 +8,7 @@ import { FilesController } from './files.controller';
 import { FilesService } from './files.service';
 import { Response } from 'express';
 import { FileDto } from './dto/file.dto';
-import { readFile } from 'node:fs/promises';
+import { readFile } from 'fs/promises';
 
 describe('FilesController', () => {
   let filesController: FilesController;
