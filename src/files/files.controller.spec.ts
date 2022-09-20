@@ -2,11 +2,9 @@
 https://docs.nestjs.com/fundamentals/testing#unit-testing
 */
 
-import { HttpStatus } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { FilesController } from './files.controller';
 import { FilesService } from './files.service';
-import { Response } from 'express';
 import { FileDto } from './dto/file.dto';
 import { readFile } from 'fs/promises';
 
